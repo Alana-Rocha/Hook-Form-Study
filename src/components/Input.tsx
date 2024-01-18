@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { forwardRef, memo } from "react";
 import { Button } from "../components/Button";
-import { Cores } from "../styles/cores";
 
 type InputProps = {
   label: string;
@@ -42,20 +41,20 @@ export const Input = memo(
           isInvalid={!!errorMessage}
           isRequired={isRequired}
         >
-          <FormLabel fontSize="0.85rem" fontWeight="400">
+          <FormLabel fontSize="1rem" fontWeight="400">
             {label}
           </FormLabel>
           <InputGroup>
             <InputChakra
               ref={ref}
-              fontSize="0.9rem"
-              bgColor="#F2F3F3"
+              fontSize="1rem"
+              bgColor="white"
               borderRadius="12px"
               borderRightRadius={confirm ? "0" : "12px"}
               border="1px solid transparent"
               _hover={{}}
-              boxShadow='base'
-              _focusVisible={{ borderColor: Cores.AZUL }}
+              boxShadow="base"
+              _focusVisible={{ borderColor: "#123650" }}
               {...rest}
             />
             {confirm && (
@@ -70,7 +69,7 @@ export const Input = memo(
               </Button>
             )}
           </InputGroup>
-          <FormErrorMessage mt="-1px" fontSize="0.8rem">
+          <FormErrorMessage mt="-1px" fontSize="0.9rem">
             {errorMessage}
           </FormErrorMessage>
         </FormControl>

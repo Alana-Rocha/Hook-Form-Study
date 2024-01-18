@@ -13,15 +13,13 @@ export const Button = memo(
   ({ children, ...rest }: ButtonProps & ButtonPropsChakra) => {
     return (
       <ButtonChakra
-        px={7}
-        py="17px"
         color={Cores.BRANCO}
-        bgColor={Cores.CINZA}
+        bgColor="#445799"
         borderRadius={999}
         fontWeight="500"
         fontSize="0.9rem"
         transition=".3s"
-        _hover={{ bg: Cores.CINZA_CLARO }}
+        _hover={{ bg: "#394686" }}
         {...rest}
       >
         {children}
