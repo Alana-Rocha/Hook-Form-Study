@@ -1,4 +1,3 @@
-import { SearchIcon } from "@chakra-ui/icons";
 import {
   FormControl,
   FormLabel,
@@ -10,7 +9,7 @@ import { forwardRef, memo } from "react";
 import { Button } from "../components/Button";
 
 type InputProps = {
-  label: string;
+  label?: string;
   isReadOnly?: boolean;
   maxW?: string | number;
 
@@ -31,23 +30,21 @@ export const Input = memo(
             <InputChakra
               ref={ref}
               fontSize="1rem"
-              w="250px"
+              w="300px"
               bgColor="white"
               borderRadius="5px"
               border="1px solid transparent"
               _hover={{}}
               boxShadow="base"
-              _focusVisible={{ borderColor: "red" }}
+              _focusVisible={{ borderColor: "#445995" }}
               {...rest}
             />
             {confirm && (
               <Button
-                p="20px"
-                borderLeftRadius="0"
                 borderRightRadius="12px"
                 onClick={() => onConfirm && onConfirm()}
               >
-                <SearchIcon fontSize="1rem" />
+                {/* <SearchIcon fontSize="5rem" /> */}
               </Button>
             )}
           </InputGroup>
