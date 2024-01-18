@@ -1,30 +1,62 @@
-import { Box } from "./components/Box";
+import { Flex } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Button } from "./components/Button";
 import { Input } from "./components/Input";
-import { Cores } from "./styles/cores";
+
+const createUseFormSchema = z.object({
+  email: z
+    .string()
+    .nonempty("o e-mail é obrigatório")
+    .email("formato de e-mail inválido"),
+  password: z.string().min(6, "A senha precisa de no mínimo 6 caracteres"),
+});
 
 export const App = () => {
+  const [output, setOutput] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(createUseFormSchema),
+  });
+
+  const createUser = (data: any) => {
+    setOutput(JSON.stringify(data, null, 2));
+  };
+
   return (
-    <Box
-      bgColor={Cores.CINZA_IMAGEM}
+    <Flex
+      bgColor="#445995"
       flexDir="column"
       h="100vh"
       justifyContent="center"
       alignItems="center"
     >
-      <Box
-        bgColor="#e2e2e2"
-        flexDir="column"
-        alignContent="center"
-        maxW="100%"
-        gap={4}
-        p={12}
-        color="#394686"
-      >
-        <Input label={"E-mail"}></Input>
-        <Input label={"Password"}></Input>
-        <Button mt={5}>Submit</Button>
-      </Box>
-    </Box>
+      <form onSubmit={handleSubmit(createUser)}>
+        <Flex
+          flexDirection="column"
+          bgColor="#e2e2e2"
+          alignContent="center"
+          borderRadius="10px"
+          gap={2}
+          p={12}
+          color="#394686"
+        >
+          <Input label={"E-mail"} type="email" {...register("email")} />
+          {errors.email && <span>{errors.email.message}</span>}
+          <Input label={"Password"} type="password" {...register("password")} />
+          {errors.password && <span>{errors.password.message}</span>}
+
+          <Button mt={2} type="submit">
+            Submit
+          </Button>
+        </Flex>
+      </form>
+      <Flex>{output}</Flex>
+    </Flex>
   );
 };

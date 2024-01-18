@@ -15,7 +15,7 @@ export const Button = memo(
       <ButtonChakra
         color={Cores.BRANCO}
         bgColor="#445799"
-        borderRadius={999}
+        borderRadius='5px'
         fontWeight="500"
         fontSize="0.9rem"
         transition=".3s"

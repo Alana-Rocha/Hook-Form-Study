@@ -5,7 +5,7 @@ type BoxProps = { children?: JSX.Element | JSX.Element[] };
 
 export const Box = memo(({ children, ...rest }: BoxProps & FlexProps) => {
   return (
-    <Flex borderRadius="25" boxShadow="base" {...rest}>
+    <Flex borderRadius="10px" boxShadow="base" {...rest}>
       {children}
     </Flex>
   );
