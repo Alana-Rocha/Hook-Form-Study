@@ -100,7 +100,7 @@ export const App = () => {
 
           {fields.map((field, index) => {
             return (
-              <Flex key={field.id} gap={2} flexDir="column">
+              <Flex key={field.id} gap={2}>
                 <Input
                   // label={"Technologies"}
                   type="text"
@@ -108,6 +108,7 @@ export const App = () => {
                 />
                 <Input
                   // label={"Technologies"}
+                  w='50px'
                   type="text"
                   {...register(`techs.${index}.knowledge`)}
                 />
