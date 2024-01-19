@@ -50,6 +50,10 @@ export const App = () => {
     name: "techs",
   });
 
+  const addNewTech = () => {
+    append({ title: "", knowledge: 0 });
+  };
+
   const createUser = (data: any) => {
     setOutput(JSON.stringify(data, null, 2));
   };
@@ -68,7 +72,7 @@ export const App = () => {
           bgColor="#e2e2e2"
           alignContent="center"
           borderRadius="10px"
-          gap={1}
+          gap={2}
           p={12}
           color="#000"
         >
@@ -80,16 +84,30 @@ export const App = () => {
           {errors.password && <span>{errors.password.message}</span>}
           {/* {errors.password && <span>{errors.password.message}</span>} */}
 
+          <Flex gap={3}>
+            <label style={{ fontWeight: "500" }}>Technologies</label>
+            <Button
+              maxW="20%"
+              h="25px"
+              fontSize="0.6rem"
+              onClick={addNewTech}
+              bgColor="green"
+              _hover={{ bg: "#006e01" }}
+            >
+              Adicionar
+            </Button>
+          </Flex>
+
           {fields.map((field, index) => {
             return (
-              <Flex key={field.id}>
+              <Flex key={field.id} gap={2} flexDir="column">
                 <Input
-                  label={"Technologies"}
+                  // label={"Technologies"}
                   type="text"
                   {...register(`techs.${index}.title`)}
                 />
                 <Input
-                  label={"Technologies"}
+                  // label={"Technologies"}
                   type="text"
                   {...register(`techs.${index}.knowledge`)}
                 />
