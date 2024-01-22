@@ -5,6 +5,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "./components/Button";
 import { Input } from "./components/Input";
+import "./styles/App.css";
 
 const createUseFormSchema = z.object({
   name: z
@@ -24,12 +25,14 @@ const createUseFormSchema = z.object({
     .nonempty("O e-mail é obrigatório")
     .email("Formato de e-mail inválido"),
   password: z.string().min(6, "A senha precisa de no mínimo 6 caracteres"),
-  techs: z.array(
-    z.object({
-      title: z.string().nonempty("O título é obrigatório"),
-      knowledge: z.number().min(1).max(100),
-    })
-  ),
+  techs: z
+    .array(
+      z.object({
+        title: z.string().nonempty("O título é obrigatório"),
+        knowledge: z.coerce.number().min(1).max(100),
+      })
+    )
+    .min(2, "Insira pelo menos 2 tecnologias."),
 });
 
 type CreateUseFormData = z.infer<typeof createUseFormSchema>;
@@ -82,7 +85,6 @@ export const App = () => {
           {errors.email && <span>{errors.email.message}</span>}
           <Input label={"Password"} type="password" {...register("password")} />
           {errors.password && <span>{errors.password.message}</span>}
-          {/* {errors.password && <span>{errors.password.message}</span>} */}
 
           <Flex gap={3}>
             <label style={{ fontWeight: "500" }}>Technologies</label>
@@ -101,17 +103,30 @@ export const App = () => {
           {fields.map((field, index) => {
             return (
               <Flex key={field.id} gap={2}>
-                <Input
-                  // label={"Technologies"}
-                  type="text"
-                  {...register(`techs.${index}.title`)}
-                />
-                <Input
-                  // label={"Technologies"}
-                  w='50px'
-                  type="text"
-                  {...register(`techs.${index}.knowledge`)}
-                />
+                <Flex flexDir="column" gap={1}>
+                  <Input
+                    type="text"
+                    {...register(`techs.${index}.title`)}
+                    w="245px"
+                  />
+
+                  {errors.techs?.[index]?.title && (
+                    <span>{errors.techs?.[index]?.title?.message}</span>
+                  )}
+                </Flex>
+
+                <Flex flex="1" flexDir="column" gap={1}>
+                  <Input
+                    w="50px"
+                    type="text"
+                    {...register(`techs.${index}.knowledge`)}
+                  />
+
+                  {errors.techs?.[index]?.knowledge && (
+                    <span>{errors.techs?.[index]?.knowledge?.message}</span>
+                  )}
+                </Flex>
+                {errors.techs && <span>{errors.techs.message}</span>}
               </Flex>
             );
           })}

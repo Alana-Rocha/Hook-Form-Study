@@ -34,7 +34,6 @@ export const Input = memo(
               bgColor="white"
               borderRadius="5px"
               border="1px solid transparent"
-              _hover={{}}
               boxShadow="base"
               _focusVisible={{ borderColor: "#445995" }}
               {...rest}
@@ -43,9 +42,7 @@ export const Input = memo(
               <Button
                 borderRightRadius="12px"
                 onClick={() => onConfirm && onConfirm()}
-              >
-                {/* <SearchIcon fontSize="5rem" /> */}
-              </Button>
+              ></Button>
             )}
           </InputGroup>
         </FormControl>
