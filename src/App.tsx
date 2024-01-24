@@ -29,10 +29,10 @@ const createUseFormSchema = z.object({
     .array(
       z.object({
         title: z.string().nonempty("O título é obrigatório"),
-        knowledge: z.coerce.number().min(1).max(100),
+        knowledge: z.number({ coerce: true }).min(1, "min 1").max(100),
       })
     )
-    .min(2, "Insira pelo menos 2 tecnologias."),
+    .min(2, "Deve conter no mínimo 2 techs."),
 });
 
 type CreateUseFormData = z.infer<typeof createUseFormSchema>;
@@ -48,7 +48,7 @@ export const App = () => {
     resolver: zodResolver(createUseFormSchema),
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control,
     name: "techs",
   });
@@ -113,6 +113,7 @@ export const App = () => {
                   {errors.techs?.[index]?.title && (
                     <span>{errors.techs?.[index]?.title?.message}</span>
                   )}
+                  {errors.techs && <span>{errors.techs.root?.message}</span>}
                 </Flex>
 
                 <Flex flex="1" flexDir="column" gap={1}>
@@ -126,7 +127,6 @@ export const App = () => {
                     <span>{errors.techs?.[index]?.knowledge?.message}</span>
                   )}
                 </Flex>
-                {errors.techs && <span>{errors.techs.message}</span>}
               </Flex>
             );
           })}

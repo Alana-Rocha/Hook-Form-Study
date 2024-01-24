@@ -6,21 +6,15 @@ import {
   InputProps as InputPropsChakra,
 } from "@chakra-ui/react";
 import { forwardRef, memo } from "react";
-import { Button } from "../components/Button";
 
 type InputProps = {
   label?: string;
-  isReadOnly?: boolean;
   maxW?: string | number;
-
-  isLoading?: boolean;
-  confirm?: boolean;
-  onConfirm?: () => void;
 };
 
 export const Input = memo(
   forwardRef<HTMLInputElement, InputProps & InputPropsChakra>(
-    ({ label, maxW, confirm, onConfirm, ...rest }, ref) => {
+    ({ label, maxW, ...rest }, ref) => {
       return (
         <FormControl maxW={maxW}>
           <FormLabel fontSize="0.9rem" fontWeight="400">
@@ -38,12 +32,6 @@ export const Input = memo(
               _focusVisible={{ borderColor: "#445995" }}
               {...rest}
             />
-            {confirm && (
-              <Button
-                borderRightRadius="12px"
-                onClick={() => onConfirm && onConfirm()}
-              ></Button>
-            )}
           </InputGroup>
         </FormControl>
       );
