@@ -82,7 +82,6 @@ export const App = () => {
           {errors.email && <span>{errors.email.message}</span>}
           <Input label={"Password"} type="password" {...register("password")} />
           {errors.password && <span>{errors.password.message}</span>}
-          {/* {errors.password && <span>{errors.password.message}</span>} */}
 
           <Flex gap={3}>
             <label style={{ fontWeight: "500" }}>Technologies</label>
@@ -102,13 +101,12 @@ export const App = () => {
             return (
               <Flex key={field.id} gap={2}>
                 <Input
-                  // label={"Technologies"}
+                  w="230px"
                   type="text"
                   {...register(`techs.${index}.title`)}
                 />
                 <Input
-                  // label={"Technologies"}
-                  w='50px'
+                  w="60px"
                   type="text"
                   {...register(`techs.${index}.knowledge`)}
                 />
