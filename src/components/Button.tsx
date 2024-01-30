@@ -3,7 +3,6 @@ import {
   ButtonProps as ButtonPropsChakra,
 } from "@chakra-ui/react";
 import { memo } from "react";
-import { Cores } from "../styles/cores";
 
 type ButtonProps = {
   children?: string | JSX.Element;
@@ -13,9 +12,9 @@ export const Button = memo(
   ({ children, ...rest }: ButtonProps & ButtonPropsChakra) => {
     return (
       <ButtonChakra
-        color={Cores.BRANCO}
+        color="#FFF"
         bgColor="#445799"
-        borderRadius='5px'
+        borderRadius="5px"
         fontWeight="500"
         fontSize="0.9rem"
         transition=".3s"

@@ -5,6 +5,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "./components/Button";
 import { Input } from "./components/Input";
+import "./styles/App.css";
 
 const createUseFormSchema = z.object({
   name: z
@@ -24,12 +25,14 @@ const createUseFormSchema = z.object({
     .nonempty("O e-mail é obrigatório")
     .email("Formato de e-mail inválido"),
   password: z.string().min(6, "A senha precisa de no mínimo 6 caracteres"),
-  techs: z.array(
-    z.object({
-      title: z.string().nonempty("O título é obrigatório"),
-      knowledge: z.number().min(1).max(100),
-    })
-  ),
+  techs: z
+    .array(
+      z.object({
+        title: z.string().nonempty("O título é obrigatório"),
+        knowledge: z.number({ coerce: true }).min(1, "min 1").max(100),
+      })
+    )
+    .min(2, "Deve conter no mínimo 2 techs."),
 });
 
 type CreateUseFormData = z.infer<typeof createUseFormSchema>;
@@ -45,7 +48,7 @@ export const App = () => {
     resolver: zodResolver(createUseFormSchema),
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control,
     name: "techs",
   });
@@ -100,16 +103,30 @@ export const App = () => {
           {fields.map((field, index) => {
             return (
               <Flex key={field.id} gap={2}>
-                <Input
-                  w="230px"
-                  type="text"
-                  {...register(`techs.${index}.title`)}
-                />
-                <Input
-                  w="60px"
-                  type="text"
-                  {...register(`techs.${index}.knowledge`)}
-                />
+                <Flex flexDir="column" gap={1}>
+                  <Input
+                    type="text"
+                    {...register(`techs.${index}.title`)}
+                    w="245px"
+                  />
+
+                  {errors.techs?.[index]?.title && (
+                    <span>{errors.techs?.[index]?.title?.message}</span>
+                  )}
+                  {errors.techs && <span>{errors.techs.root?.message}</span>}
+                </Flex>
+
+                <Flex flex="1" flexDir="column" gap={1}>
+                  <Input
+                    w="50px"
+                    type="text"
+                    {...register(`techs.${index}.knowledge`)}
+                  />
+
+                  {errors.techs?.[index]?.knowledge && (
+                    <span>{errors.techs?.[index]?.knowledge?.message}</span>
+                  )}
+                </Flex>
               </Flex>
             );
           })}
